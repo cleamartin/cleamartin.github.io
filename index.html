@@ -55,9 +55,21 @@
 
     <div id="map"></div>
 
-    <script type="text/javascript" src="data.js"></script>
-    
+    <script type="text/javascript" src="data/0.js"></script>
+    <script type="text/javascript" src="data/1.js"></script>
+    <script type="text/javascript" src="data/2.js"></script>
+    <script type="text/javascript" src="data/3.js"></script>
+    <script type="text/javascript" src="data/4.js"></script>
+    <script type="text/javascript" src="data/5.js"></script>
+    <script type="text/javascript" src="data/6.js"></script>
+    <script type="text/javascript" src="data/7.js"></script>
+    <script type="text/javascript" src="data/8.js"></script>
+    <script type="text/javascript" src="data/9.js"></script>
+
+
     <script>
+    const features = d0.features.concat(d1.features,d2.features,d3.features,d4.features,d5.features,d6.features,d7.features,d8.features,d9.features)
+
 
     /** SETUP MAP **/
     const map = L.map('map').setView([-25.2744, 133.7751], 5);
@@ -127,7 +139,7 @@
     }).addTo(map);
     
 
-    L.geoJSON(data, {
+    L.geoJSON(features, {
             onEachFeature: onEachChangesFeature,
             transparent: true,
             style: style
