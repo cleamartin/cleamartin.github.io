@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian CALD Population Changes by SA1 (2011&ndash;2016)</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+    <!--FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    
+    
+    <style>
+       html, body { 
+           height: 100%;
+           font-family: 'Open Sans', sans-serif;
+           margin: 0;
+        }
+
+        header {
+            padding-left: 16px;
+            /* height: 5vh; */
+        }
+
+        #map {
+            height: 90%;
+        }
+
+        .info { 
+            padding: 6px 8px; 
+            background: white; 
+            box-shadow: 0 0 15px rgba(0,0,0,0.2); 
+            border-radius: 5px; 
+        } 
+        
+        .info h4 { 
+            margin: 0 0 5px; 
+            color: #222; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">Australian CALD Population Changes by SA1 (2011&ndash;2016)</h1>
+    </header>
+
+    <div id="map"></div>
+
+    <script type="text/javascript" src="data.js"></script>
+    
+    <script>
+
+    /** SETUP MAP **/
+    const map = L.map('map').setView([-25.2744, 133.7751], 5);
+
+     /** INFO **/
+     var info = L.control();
+
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info');
+        this.update();
+        return this._div;
+    };
+
+    info.update = function (props) {
+        this._div.innerHTML = '<h4>CALD Population</h4>' + (props ?
+        '<p>' + '<b>SA1:</b>' + props.sa1_7digit + '<br><b>2016:</b>' + props.cald_2016 + '<br><b>Change:</b>' + props.diff + '</p>'
+        : '<p>Hover over an SA1</p>')
+    }
+
+    info.addTo(map);
+
+    /** Highlighting **/
+    function highlightFeature(e) {
+        // var layer = e.layer
+        info.update(e.target.feature.properties);
+    }
+
+    function resetHighlight(e) {
+        info.update();
+    }
+
+    function zoomToFeature(e) {
+        map.fitBounds(e.target.getBounds());
+    }
+
+    function onEachChangesFeature(feature, layer) {
+        // const popupContent = '<p> change: ' +  feature.properties.diff + '</p>'
+        // layer.bindPopup(popupContent)
+        layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight,
+            click: zoomToFeature
+        })
+    }
+
+    function style(feature) {
+        const diff = feature.properties.diff;
+        const color =  diff < 0 ? '#dfc27d' : 
+            diff > 0 ? '#80cdc1' : '#f5f5f5' 
+            
+        return {
+            weight: 1,
+            color: '#e2e2e2',
+            fillColor: color,
+            fillOpacity: 1
+        }
+    }
+
+    // Base layer
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Imagery © <a href="https://www.mapbox.com/">Mapbox</a> | Data <a href="https://www.abs.gov.au/">ABS</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoiY2F0bG0iLCJhIjoiY2wxb3Z4czNrMDZlNjNqbG05djFnamdxMSJ9.pKDt3va8qjCu-z4CA1jTCQ'
+    }).addTo(map);
+    
+
+    L.geoJSON(data, {
+            onEachFeature: onEachChangesFeature,
+            transparent: true,
+            style: style
+        }).addTo(map)
+   
+    </script>
+</body>
+</html>
