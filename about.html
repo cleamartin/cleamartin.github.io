@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian CALD Population Changes by SA1 (2011&ndash;2016)</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+     <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+    <!--FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+       html, body { 
+           height: 100%;
+           font-family: 'Open Sans', sans-serif;
+           margin: 0;
+        }
+
+        header {
+            padding-left: 16px;
+            /* height: 5vh; */
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        #map {
+            height: 90%;
+        }
+
+        .info { 
+            padding: 8px 8px; 
+            background: white; 
+            box-shadow: 0 0 15px rgba(0,0,0,0.2); 
+            border-radius: 5px; 
+            height: 85px;
+        } 
+        
+        .info h4 { 
+            margin: 0 0 5px; 
+            color: #222; 
+        }
+
+        .legend { 
+            text-align: left; 
+            line-height: 18px;
+        }
+
+        .legend i {
+            width: 18px; 
+            height: 18px;
+            float: left; 
+            margin-right: 8px;
+        }
+
+        .slider-control {
+            background-color: white;
+            padding: 8px 8px; 
+            background: white; 
+            box-shadow: 0 0 15px rgba(0,0,0,0.2); 
+            border-radius: 5px; 
+            height: 85px;
+            position: absolute;
+            top: 115%;
+            right: 1px;
+            width: 148px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-wrapper {
+            padding-top: 20px;
+        }
+
+        .nav {
+            /* border: 1px solid black; */
+            /* border-radius: 50%; */
+            /* float: right; */
+            /* height: 36px; */
+            /* width: 36px; */
+            margin-right: 14px;
+            background: #fff;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .about-btn {
+            height: 32px;
+            width: 64px;
+        }
+
+        .info2 {
+            width: 148px;
+        }
+
+        .nav-link {
+            color: #222;
+        }
+
+        main {
+            display: flex;
+            /* justify-content: center; */
+            margin-left: 10%;
+            margin-top: 2%;
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <div>
+            <h1 class="header-title">CALD Population Changes for Australia by SA1 (2011&ndash;2016)</h1>
+        </div>
+
+        <nav class="nav">
+            <a class="nav-link" href="./index.html">
+                Map
+            </a>
+        </nav>
+    </header>
+    <main>
+        <div>
+            <h2>About</h2>
+            <h4>Statistical Area Level 1 (SA1)</h4>
+            <p>SA1s are geographical areas with a population of 200 to 800 people (average: 400).</p>
+            <p><a href="https://www.abs.gov.au/ausstats/abs@.nsf/Lookup/by%20Subject/1270.0.55.001~July%202016~Main%20Features~Statistical%20Area%20Level%201%20(SA1)~10013">ABS SA1s</a><br><br></p>
+            <h4>SA1 changes from 2011 to 2016</h4>
+            <p>The number of SA1s increased by 2,718 from 2011 to 2016. To account for the divergence</p> 
+            <p>of some SA1s and the formation of new SA1s, the ABS population weighted grid</p>
+            <p>correspondences were applied and the corresponding population changes were calculated.</p>
+            <p>The resulting population percentages for the CALD population changes between 2011 and</p> 
+            <p>2016 were rounded to the nearest whole number.</p>
+            <p><a href="https://www.abs.gov.au/AUSSTATS/abs@.nsf/7d12b0f6763c78caca257061001cc588/a6f336f622569753ca257a2900197a5a!OpenDocument">ABS Correspondences 2011</a><br><br></p>
+            <h4>Data files</h4>
+            <p><a href = "https://github.com/cleamartin/cleamartin.github.io">Data files @ GitHub</a><br><br></p>
+            <p><a href="./index.html">Click here to return to the Map.</a></p>
+
+        </div> 
+    </main>
+        
+    <script>
+
+    </script>
+</body>
+</html>
