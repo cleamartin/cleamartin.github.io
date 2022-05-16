@@ -8,16 +8,17 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/>
-     <!-- Make sure you put this AFTER Leaflet's CSS -->
+     <!-- LEAFLET (Make sure you put this AFTER Leaflet's CSS.) -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
 
-    <!--FONTS-->
+    <!--FONTS (From Google fonts website.)-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    
+
+    <!---- DATA FILES --->
     <script type="text/javascript" src="data/0.js"></script>
     <script type="text/javascript" src="data/1.js"></script>
     <script type="text/javascript" src="data/2.js"></script>
@@ -38,7 +39,6 @@
 
         header {
             padding-left: 16px;
-            /* height: 5vh; */
         }
 
         #map {
@@ -90,11 +90,6 @@
         }
 
         .nav {
-            /* border: 1px solid black; */
-            /* border-radius: 50%; */
-            /* float: right; */
-            /* height: 36px; */
-            /* width: 36px; */
             margin-right: 14px;
             background: #fff;
         }
@@ -115,7 +110,6 @@
         }
 
         #abt-popup {
-            /* position: relative !important; */
             background: white;
             border: 1px solid #222;
             width: 300px;
@@ -155,10 +149,9 @@
     const features = d0.features.concat(d1.features,d2.features,d3.features,d4.features,d5.features,d6.features,d7.features,d8.features,d9.features)
 
 
-    /** SETUP MAP **/
     const map = L.map('map').setView([-25.2744, 133.7751], 5);
 
-    /** INFO **/
+    /** TOOLTIP w/HOVER (For SA1 info.) **/
     var info = L.control();
 
     info.onAdd = function (map) {
@@ -175,15 +168,14 @@
 
     info.addTo(map);
 
-    /** SLIDER CONTROL **/
+    /** SLIDER CONTROL (For LAYER OPACITY slider.)**/
     function updateSlider(val) {
-        // console.log(val)
         const elements = document.getElementsByClassName('leaflet-interactive')
         
         for (let i = 0; i < elements.length; i++) {
             elements[i].style.fillOpacity = val;
         }
-
+ 
     }
 
     const sliderControl = L.control();
@@ -201,11 +193,9 @@
 
     sliderControl.addTo(map);
 
-    
 
-    /** Highlighting **/
+    /** HIGHLIGHTING **/
     function highlightFeature(e) {
-        // var layer = e.layer
         info.update(e.target.feature.properties);
     }
 
@@ -218,8 +208,6 @@
     }
 
     function onEachChangesFeature(feature, layer) {
-        // const popupContent = '<p> change: ' +  feature.properties.diff + '</p>'
-        // layer.bindPopup(popupContent)
         layer.on({
             mouseover: highlightFeature,
             mouseout: resetHighlight,
@@ -240,8 +228,7 @@
         }
     }
 
-
-    // Base layer
+    /** BASE LAYER **/
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Imagery © <a href="https://www.mapbox.com/">Mapbox</a> | Data <a href="https://www.abs.gov.au/census/find-census-data/datapacks?release=2016&product=GCP&geography=ALL&header=S">ABS</a> | This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 Unported License</a>.' ,
         maxZoom: 18,
@@ -283,7 +270,7 @@
     legend.addTo(map); 
 
 
-    /** POPUP STUFF **/
+    /** TBC - See alternative above. // POPUP (For 'About' pop-up/button) **/
     const popup = document.getElementById('abt-popup')
     const abtBtn = document.getElementById('abt-btn')
 
@@ -296,10 +283,8 @@
     }
 
     abtBtn.addEventListener('click', (e) => {
-        // document.getElementById('map').style.display = 'none'
         togglePopup();
     })
-
 
     </script>
 </body>
